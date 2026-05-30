@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>CKHMGHS | പ്രവേശനോത്സവം 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Anek Malayalam', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a2f44, #134e6f);
+            min-height: 100vh;
+            padding: 32px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .poster-card {
+            max-width: 1400px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 56px;
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 210, 120, 0.5);
+            overflow: hidden;
+        }
+
+        .hero-header {
+            text-align: center;
+            padding: 28px 24px 20px;
+            background: linear-gradient(120deg, #fff8ed, #fff3e0);
+            border-bottom: 2px solid #ffdeae;
+        }
+        .hero-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #1f4b6e, #f7b42c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.2px;
+        }
+        .hero-header p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #c6761a;
+            margin-top: 8px;
+        }
+
+        .flex-studio {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .controls-area {
+            flex: 1.1;
+            min-width: 290px;
+            background: #fffbf2;
+            padding: 32px 28px;
+            border-right: 1px solid #ffebcf;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .preview-area {
+            flex: 1.2;
+            background: #fef9f0;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .input-block {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .input-block label {
+            font-weight: 800;
+            color: #2f577b;
+            font-size: 1rem;
+            letter-spacing: -0.2px;
+        }
+        input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 60px;
+            border: 2px solid #f4debc;
+            background: white;
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus {
+            border-color: #f7b32b;
+            box-shadow: 0 0 0 3px rgba(247,179,43,0.2);
+        }
+
+        .upload-section {
+            transition: all 0.2s ease;
+            background: #fef5e9;
+            border-radius: 48px;
+            padding: 20px 18px;
+            border: 1px dashed #ffcd8c;
+        }
+        .file-label {
+            background: #f3e5d3;
+            padding: 14px 18px;
+            border-radius: 60px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+            border: 1px solid #e2cdab;
+        }
+        .file-label:hover {
+            background: #eedcb9;
+            transform: scale(1.01);
+            border-color: #f7b32b;
+        }
+        #photoInput {
+            display: none;
+        }
+
+        /* MODAL - CROP TOOL */
+        .crop-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.25s ease;
+        }
+        .crop-modal.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #fffef5;
+            border-radius: 48px;
+            width: 90%;
+            max-width: 750px;
+            padding: 20px 20px 28px;
+            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.5);
+            border: 1px solid #ffdfaa;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0 8px 12px 16px;
+            border-bottom: 2px solid #ffe1b3;
+        }
+        .modal-header h3 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #cc7b2a, #e69c2e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .modal-close {
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: #b97f3a;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            color: #c0392b;
+            transform: scale(1.1);
+        }
+        .crop-container {
+            margin: 20px 0;
+            background: #ece1cf;
+            border-radius: 32px;
+            overflow: hidden;
+            max-height: 55vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .crop-container img {
+            max-width: 100%;
+            display: block;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 18px;
+        }
+        .btn-crop-save {
+            background: #f7b32b;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2c2e3a;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .btn-crop-save:hover {
+            background: #e09d1a;
+            transform: translateY(-2px);
+        }
+        .btn-cancel-crop {
+            background: #e2d4c0;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            color: #5a3e1f;
+            cursor: pointer;
+        }
+
+        .canvas-wrapper {
+            background: #fff7e8;
+            border-radius: 32px;
+            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.18);
+            padding: 12px;
+            max-width: 560px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+            background: #e8d9c4;
+        }
+        .download-btn {
+            background: #1f8a4c;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+        .download-btn:hover {
+            background: #0f6a3a;
+            transform: scale(1.02);
+        }
+        .footer-credit {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #b97f2e;
+            background: #fff2e2;
+            padding: 6px 18px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 8px;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 780px) {
+            .controls-area {
+                border-right: none;
+                border-bottom: 1px solid #ffebcf;
+            }
+            .hero-header h1 {
+                font-size: 1.5rem;
+            }
+            .modal-box {
+                width: 95%;
+                padding: 16px;
+            }
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="poster-card">
+    <div class="hero-header">
+        <h1>CKHM ഗവ. ഹൈസ്കൂൾ എടപ്പറ്റ</h1>
+        <p>പ്രവേശനോത്സവം 2026</p>
+    </div>
+
+    <div class="flex-studio">
+        <div class="controls-area">
+            <div class="input-block">
+                <label>📝 നിങ്ങളുടെ പേര്</label>
+                <input type="text" id="studentName" placeholder="ഉദാ: ഫാത്തിമ കെ / FATHIMA K" autocomplete="off">
+                <div class="info-note" style="font-size:0.7rem; color:#b5762a;">* പേര് നൽകിയ ശേഷം ഫോട്ടോ അപ്ലോഡ് ചെയ്യാം</div>
+            </div>
+
+            <div id="photoUploadWrapper" class="upload-section hidden">
+                <div class="input-block">
+                    <label>📸 ഫോട്ടോ അപ്ലോഡ് </label>
+                    <div class="file-label" id="triggerFileSelect">
+                        🖼️ ഫോട്ടോ തിരഞ്ഞെടുക്കുക
+                    </div>
+                    <input type="file" id="photoInput" accept="image/jpeg, image/png, image/jpg">
+                </div>
+                <div style="font-size:0.7rem; color:#b87c30; margin-top:8px; text-align:center;">
+                    ✨ സെലക്ട് ചെയ്ത ഫോട്ടോ ക്രോപ്പ് ചെയ്യാം
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-area">
+            <div class="canvas-wrapper">
+                <canvas id="posterCanvas" style="width:100%; height:auto; max-width:530px; border-radius: 24px;"></canvas>
+            </div>
+            <button id="downloadPosterBtn" class="download-btn">⬇️ പോസ്റ്റർ ഡൗൺലോഡ് ചെയ്യുക</button>
+            <div class="footer-credit">© SUHAIL KERALA | RiseUp Brand | 7034678818</div>
+        </div>
+    </div>
+</div>
+
+<!-- CROP MODAL -->
+<div id="cropModal" class="crop-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3>✂️ ഫോട്ടോ ക്രോപ്പ് ചെയ്യുക</h3>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="crop-container" id="cropImageContainer">
+            <img id="modalCropImage" style="max-width:100%; display:block;">
+        </div>
+        <div class="modal-buttons">
+            <button id="modalCancelBtn" class="btn-cancel-crop">❌ റദ്ദാക്കുക</button>
+            <button id="modalCropSaveBtn" class="btn-crop-save">✔️ ക്രോപ്പ് & സേവ് ചെയ്യുക</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ------------- MAXIMUM RESOLUTION CONFIG -------------
+        // Ultra high-definition poster: 3000 x 3750 pixels (2.5x base 1200x1500)
+        // Provides stunning print & digital quality, JPG format download.
+        const BASE_WIDTH = 1200;
+        const BASE_HEIGHT = 1500;
+        const RESOLUTION_MULTIPLIER = 2.5;   // 3000 x 3750 px -> Maximum resolution for sharp output
+        const CANVAS_WIDTH = Math.floor(BASE_WIDTH * RESOLUTION_MULTIPLIER);
+        const CANVAS_HEIGHT = Math.floor(BASE_HEIGHT * RESOLUTION_MULTIPLIER);
+        
+        // DOM elements
+        const nameInput = document.getElementById('studentName');
+        const photoUploadWrapper = document.getElementById('photoUploadWrapper');
+        const photoFileInput = document.getElementById('photoInput');
+        const triggerFileSelect = document.getElementById('triggerFileSelect');
+        const cropModal = document.getElementById('cropModal');
+        const modalCropImg = document.getElementById('modalCropImage');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalCancelBtn = document.getElementById('modalCancelBtn');
+        const modalCropSaveBtn = document.getElementById('modalCropSaveBtn');
+        const posterCanvas = document.getElementById('posterCanvas');
+        const downloadBtn = document.getElementById('downloadPosterBtn');
+        
+        let ctx = posterCanvas.getContext('2d');
+        let cropperInstance = null;
+        let currentCroppedImage = null;      // high-res photo image
+        let backgroundImage = new Image();
+        let bgReady = false;
+        
+        // Set canvas dimensions to MAX resolution (3000x3750)
+        posterCanvas.width = CANVAS_WIDTH;
+        posterCanvas.height = CANVAS_HEIGHT;
+        
+        // Background image URL (will be stretched to fit canvas)
+        const BG_IMAGE_URL = 'https://i.postimg.cc/nrsK80fZ/KERALA.jpg';
+        
+        // Helper: rounded rectangle (supports scaling based on canvas)
+        function roundedRect(ctx, x, y, w, h, r) {
+            if (w < 2 * r) r = w / 2;
+            if (h < 2 * r) r = h / 2;
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+        
+        // ----- DYNAMIC DRAW using current canvas dimensions (fully adaptive for MAX resolution) -----
+        function drawFullPoster() {
+            if (!ctx) return;
+            const w = posterCanvas.width;
+            const h = posterCanvas.height;
+            // Calculate scaling factor relative to original design (1200x1500)
+            const factor = w / BASE_WIDTH;  // should be 2.5 (or whatever multiplier)
+            
+            // Layout constants derived from original design, multiplied by factor
+            const photoSize = 420 * factor;          // 1050px at 2.5x
+            const rightMargin = 80 * factor;         // 200px
+            const photoX = w - photoSize - rightMargin;  // Right aligned
+            const photoY = 470 * factor;             // ~1175px from top
+            const nameGapBelowPhoto = 70 * factor;   // 175px gap
+            const nameBaseY = photoY + photoSize + nameGapBelowPhoto;
+            const radius = 44 * factor;              // rounded corner radius
+            const borderWidthMain = 4 * factor;
+            const borderWidthInner = 2.5 * factor;
+            const centerPhotoX = photoX + photoSize / 2;
+            
+            // Draw background (full canvas)
+            if (bgReady && backgroundImage.complete && backgroundImage.naturalWidth > 0) {
+                ctx.drawImage(backgroundImage, 0, 0, w, h);
+            } else {
+                // fallback gradient (rich gold-blue)
+                const grad = ctx.createLinearGradient(0, 0, w, h);
+                grad.addColorStop(0, '#1d5b85');
+                grad.addColorStop(0.65, '#f5b042');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, w, h);
+            }
+            
+            // ---- PHOTO FRAME + IMAGE (High-res cropped) ----
+            if (currentCroppedImage && currentCroppedImage.complete && currentCroppedImage.naturalWidth) {
+                ctx.save();
+                ctx.beginPath();
+                roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
+                ctx.clip();
+                ctx.drawImage(currentCroppedImage, photoX, photoY, photoSize, photoSize);
+                ctx.restore();
+                
+                // Outer decorative border
+                ctx.beginPath();
+                roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
+                ctx.lineWidth = borderWidthMain;
+                ctx.strokeStyle = "#F7C873";
+                ctx.stroke();
+                // Inner fine border
+                ctx.beginPath();
+                roundedRect(ctx, photoX + borderWidthMain/2, photoY + borderWidthMain/2, photoSize - borderWidthMain, photoSize - borderWidthMain, radius - borderWidthMain/2);
+                ctx.lineWidth = borderWidthInner;
+                ctx.strokeStyle = "#FFF9E6";
+                ctx.stroke();
+            } else {
+                // Placeholder frame (when no photo)
+                ctx.fillStyle = "rgba(250, 240, 210, 0.92)";
+                ctx.beginPath();
+                roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
+                ctx.fill();
+                ctx.fillStyle = "#b57c34";
+                const emojiFontSize = 68 * factor;
+                ctx.font = `${emojiFontSize}px 'Anek Malayalam', 'Segoe UI Emoji'`;
+                ctx.textAlign = "center";
+                ctx.fillText("📷", centerPhotoX, photoY + photoSize/2 + (12 * factor));
+                ctx.textAlign = "left";
+                ctx.beginPath();
+                roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
+                ctx.strokeStyle = "#e5bf86";
+                ctx.lineWidth = borderWidthMain;
+                ctx.stroke();
+            }
+            
+            // ---- NAME SECTION (PURE BLACK COLOUR WITH WHITE GLOW, MAX LEGIBILITY) ----
+            let studentName = nameInput.value.trim();
+            if (studentName === "") {
+                studentName = "__________";
+            }
+            // Dynamic font sizing to fit within photo width + extra margin
+            let maxNameWidth = photoSize + (70 * factor);
+            let fontSize = 54 * factor;   // base font ~135px at 2.5x
+            ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
+            let textWidth = ctx.measureText(studentName).width;
+            while (textWidth > maxNameWidth && fontSize > (28 * factor)) {
+                fontSize -= (4 * factor);
+                ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
+                textWidth = ctx.measureText(studentName).width;
+            }
+            // final font size (minimum readability preserved)
+            ctx.save();
+            // Strong white glow behind black text for outstanding contrast on any background
+            ctx.shadowColor = "rgba(255, 255, 230, 0.98)";
+            ctx.shadowBlur = 8 * factor;
+            ctx.shadowOffsetX = 2 * factor;
+            ctx.shadowOffsetY = 2 * factor;
+            ctx.fillStyle = "#000000";   // EXACT BLACK as requested
+            ctx.textAlign = "center";
+            ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
+            ctx.fillText(studentName, centerPhotoX, nameBaseY);
+            // Additional subtle text stroke to enhance (shadow already powerful)
+            ctx.restore();
+        }
+        
+        // set cropped image from high-resolution canvas (1600x1600 or larger)
+        function setCroppedImageFromCanvas(canvasElement) {
+            const img = new Image();
+            img.onload = () => {
+                currentCroppedImage = img;
+                drawFullPoster();
+            };
+            // Use maximum quality PNG dataURL to preserve detail
+            img.src = canvasElement.toDataURL('image/png');
+        }
+        
+        // close crop modal safely
+        function closeCropModal(resetFileInput = true) {
+            if (cropperInstance) {
+                cropperInstance.destroy();
+                cropperInstance = null;
+            }
+            cropModal.classList.remove('active');
+            if (resetFileInput) {
+                photoFileInput.value = '';
+            }
+            modalCropImg.src = '';
+        }
+        
+        // open modal with image and init cropper (1:1 aspect for square perfect frame)
+        function openCropModalWithFile(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                modalCropImg.src = e.target.result;
+                cropModal.classList.add('active');
+                modalCropImg.onload = () => {
+                    if (cropperInstance) {
+                        cropperInstance.destroy();
+                    }
+                    cropperInstance = new Cropper(modalCropImg, {
+                        aspectRatio: 1,
+                        viewMode: 2,
+                        dragMode: 'move',
+                        autoCropArea: 0.9,
+                        cropBoxMovable: true,
+                        cropBoxResizable: true,
+                        zoomable: true,
+                        background: true,
+                        responsive: true,
+                        center: true,
+                    });
+                };
+                if (modalCropImg.complete) {
+                    modalCropImg.onload();
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Handle file selection: open crop modal for high-res crop
+        function onPhotoSelected(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                alert("ദയവായി ഒരു ചിത്രം തിരഞ്ഞെടുക്കുക (JPEG/PNG)");
+                photoFileInput.value = '';
+                return;
+            }
+            openCropModalWithFile(file);
+        }
+        
+        // Save cropped image with ULTRA HIGH RESOLUTION for final poster (2000x2000 px output)
+        function saveCroppedImage() {
+            if (!cropperInstance) {
+                alert("ക്രോപ്പ് ടൂൾ പ്രവർത്തന സജ്ജമല്ല, വീണ്ടും ശ്രമിക്കുക");
+                closeCropModal(true);
+                return;
+            }
+            // Create cropped canvas at MEGA resolution (2400x2400 ensures no pixelation on 3000px poster)
+            // Photo area on poster will be ~1050px, but providing 2000px+ keeps it razor sharp.
+            const croppedCanvas = cropperInstance.getCroppedCanvas({ width: 2200, height: 2200 });
+            if (!croppedCanvas) {
+                alert("ക്രോപ്പ് ചെയ്യുന്നതിൽ പിശക്, ദയവായി വീണ്ടും ശ്രമിക്കുക");
+                return;
+            }
+            setCroppedImageFromCanvas(croppedCanvas);
+            closeCropModal(true);
+        }
+        
+        function cancelCropping() {
+            closeCropModal(true);
+        }
+        
+        // ----- Show/hide photo upload section based on name input -----
+        function toggleUploadSection() {
+            const nameValue = nameInput.value.trim();
+            if (nameValue.length > 0) {
+                if (photoUploadWrapper.classList.contains('hidden')) {
+                    photoUploadWrapper.classList.remove('hidden');
+                }
+            } else {
+                if (!photoUploadWrapper.classList.contains('hidden')) {
+                    photoUploadWrapper.classList.add('hidden');
+                }
+            }
+            drawFullPoster();
+        }
+        
+        function onNameChange() {
+            toggleUploadSection();
+            drawFullPoster();
+        }
+        
+        // ----- Load high-res background (will be scaled beautifully) -----
+        function initBackground() {
+            backgroundImage.crossOrigin = "Anonymous";
+            backgroundImage.onload = () => {
+                bgReady = true;
+                drawFullPoster();
+            };
+            backgroundImage.onerror = () => {
+                console.warn("Background fallback");
+                bgReady = true;
+                drawFullPoster();
+            };
+            backgroundImage.src = BG_IMAGE_URL;
+        }
+        
+        // ----- DOWNLOAD AS JPG WITH MAXIMUM QUALITY (0.98) and maximum resolution -----
+        function downloadPosterAsJPG() {
+            const nameForFile = (nameInput.value.trim() || "GUPS_poster").replace(/[^a-zA-Z0-9\u0D00-\u0D7F]/g, '_');
+            const filename = `GUPS_Poster_${nameForFile}.jpg`;
+            // Convert canvas to JPEG blob at highest quality (0.98)
+            posterCanvas.toBlob((blob) => {
+                if (blob) {
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                } else {
+                    alert("JPG ജനറേഷൻ പരാജയപ്പെട്ടു, വീണ്ടും ശ്രമിക്കുക");
+                }
+            }, 'image/jpeg', 0.98);   // Maximum quality JPG
+        }
+        
+        // ----- EVENT BINDINGS -----
+        nameInput.addEventListener('input', onNameChange);
+        nameInput.addEventListener('blur', () => drawFullPoster());
+        triggerFileSelect.addEventListener('click', (e) => {
+            e.preventDefault();
+            const nameExists = nameInput.value.trim().length > 0;
+            if (!nameExists) {
+                alert("ദയവായി ആദ്യം നിങ്ങളുടെ പേര് രേഖപ്പെടുത്തുക");
+                return;
+            }
+            photoFileInput.click();
+        });
+        photoFileInput.addEventListener('change', onPhotoSelected);
+        
+        modalCropSaveBtn.addEventListener('click', saveCroppedImage);
+        modalCancelBtn.addEventListener('click', cancelCropping);
+        closeModalBtn.addEventListener('click', cancelCropping);
+        cropModal.addEventListener('click', (e) => {
+            if (e.target === cropModal) cancelCropping();
+        });
+        
+        downloadBtn.addEventListener('click', downloadPosterAsJPG);
+        
+        // final background init
+        initBackground();
+        toggleUploadSection();
+        drawFullPoster();
+        
+        // handle window resize: just redraw preview but canvas dimensions remain max (3000x3750)
+        window.addEventListener('resize', () => {
+            drawFullPoster();
+        });
+        
+        // Additional note: ensure that if the user loads a very small image, cropping to 2200x2200 still works
+        // but gives best possible sharpness.
+        console.log(`Poster MAX RESOLUTION active: ${CANVAS_WIDTH} x ${CANVAS_HEIGHT} pixels, JPG download with 0.98 quality.`);
+    })();
+</script>
+</body>
+</html>
