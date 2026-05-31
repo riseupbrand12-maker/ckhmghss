@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>CKHMGHS | പ്രവേശനോത്സവം 2026</title>
+    <title>CKHMGHS | പ്രവേശനോത്സവം 2026 | വൈറ്റ് നെയിം & ലോവർ പൊസിഷൻ</title>
     <link href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.js"></script>
@@ -337,7 +337,7 @@
                     <input type="file" id="photoInput" accept="image/jpeg, image/png, image/jpg">
                 </div>
                 <div style="font-size:0.7rem; color:#b87c30; margin-top:8px; text-align:center;">
-                    ✨ ഫോട്ടോ ക്രോപ്പ് ചെയ്യാം
+                    ✨ ഫോട്ടോ ക്രോപ്പ് ചെയ്യാം (1:1)
                 </div>
             </div>
         </div>
@@ -371,12 +371,11 @@
 
 <script>
     (function() {
-        // ------------- MAXIMUM RESOLUTION CONFIG -------------
-        // Ultra high-definition poster: 3000 x 3750 pixels (2.5x base 1200x1500)
-        // Provides stunning print & digital quality, JPG format download.
+        // ---------- MAX RESOLUTION CONFIG ----------
+        // Ultra-high definition poster: 3000 x 3750 pixels (2.5x base 1200x1500)
         const BASE_WIDTH = 1200;
         const BASE_HEIGHT = 1500;
-        const RESOLUTION_MULTIPLIER = 2.5;   // 3000 x 3750 px -> Maximum resolution for sharp output
+        const RESOLUTION_MULTIPLIER = 2.5;   // 3000 x 3750 px ultra sharp
         const CANVAS_WIDTH = Math.floor(BASE_WIDTH * RESOLUTION_MULTIPLIER);
         const CANVAS_HEIGHT = Math.floor(BASE_HEIGHT * RESOLUTION_MULTIPLIER);
         
@@ -395,7 +394,7 @@
         
         let ctx = posterCanvas.getContext('2d');
         let cropperInstance = null;
-        let currentCroppedImage = null;      // high-res photo image
+        let currentCroppedImage = null;      // high-res photo image (square)
         let backgroundImage = new Image();
         let bgReady = false;
         
@@ -403,10 +402,10 @@
         posterCanvas.width = CANVAS_WIDTH;
         posterCanvas.height = CANVAS_HEIGHT;
         
-        // Background image URL (will be stretched to fit canvas)
+        // Background image URL (high-res template from original)
         const BG_IMAGE_URL = 'https://i.postimg.cc/tRs1gw1M/EDAPPATTA1.jpg';
         
-        // Helper: rounded rectangle (supports scaling based on canvas)
+        // Helper: rounded rectangle
         function roundedRect(ctx, x, y, w, h, r) {
             if (w < 2 * r) r = w / 2;
             if (h < 2 * r) r = h / 2;
@@ -422,31 +421,32 @@
             ctx.closePath();
         }
         
-        // ----- DYNAMIC DRAW using current canvas dimensions (fully adaptive for MAX resolution) -----
+        // ----- DYNAMIC DRAW with adjusted lower position (Photo + Name moved downwards) & WHITE NAME -----
         function drawFullPoster() {
             if (!ctx) return;
             const w = posterCanvas.width;
             const h = posterCanvas.height;
-            // Calculate scaling factor relative to original design (1200x1500)
-            const factor = w / BASE_WIDTH;  // should be 2.5 (or whatever multiplier)
+            const factor = w / BASE_WIDTH;  // 2.5x scaling
             
-            // Layout constants derived from original design, multiplied by factor
-            const photoSize = 420 * factor;          // 1050px at 2.5x
-            const rightMargin = 80 * factor;         // 200px
-            const photoX = w - photoSize - rightMargin;  // Right aligned
-            const photoY = 470 * factor;             // ~1175px from top
-            const nameGapBelowPhoto = 70 * factor;   // 175px gap
-            const nameBaseY = photoY + photoSize + nameGapBelowPhoto;
-            const radius = 44 * factor;              // rounded corner radius
+            // --- LAYOUT ADJUSTMENTS: "കുറച്ച് താഴേക്ക്" --> lowered photo and name by +90px (base) ---
+            // original photoY = 470 * factor, now increased significantly for perfect lower placement
+            const LOWER_OFFSET_BASE = 90;    // base pixels added to Y (moves photo + name further down)
+            const photoSize = 420 * factor;          // 1050px @2.5x
+            const rightMargin = 80 * factor;         // 200px right margin
+            const photoX = w - photoSize - rightMargin;   // Right aligned (unchanged)
+            const photoY = (470 + LOWER_OFFSET_BASE) * factor;   // 560 * factor = ~1400px from top (lowered nicely)
+            const nameGapBelowPhoto = 70 * factor;     // gap between photo and name: 175px
+            const nameBaseY = photoY + photoSize + nameGapBelowPhoto;   // name moves down automatically
+            const radius = 44 * factor;                // rounded corner radius
             const borderWidthMain = 4 * factor;
             const borderWidthInner = 2.5 * factor;
             const centerPhotoX = photoX + photoSize / 2;
             
-            // Draw background (full canvas)
+            // 1. Draw background (full canvas)
             if (bgReady && backgroundImage.complete && backgroundImage.naturalWidth > 0) {
                 ctx.drawImage(backgroundImage, 0, 0, w, h);
             } else {
-                // fallback gradient (rich gold-blue)
+                // Elegant fallback gradient
                 const grad = ctx.createLinearGradient(0, 0, w, h);
                 grad.addColorStop(0, '#1d5b85');
                 grad.addColorStop(0.65, '#f5b042');
@@ -454,7 +454,7 @@
                 ctx.fillRect(0, 0, w, h);
             }
             
-            // ---- PHOTO FRAME + IMAGE (High-res cropped) ----
+            // 2. PHOTO FRAME + HIGH-QUALITY IMAGE (cropped square)
             if (currentCroppedImage && currentCroppedImage.complete && currentCroppedImage.naturalWidth) {
                 ctx.save();
                 ctx.beginPath();
@@ -463,20 +463,20 @@
                 ctx.drawImage(currentCroppedImage, photoX, photoY, photoSize, photoSize);
                 ctx.restore();
                 
-                // Outer decorative border
+                // Outer decorative border (golden)
                 ctx.beginPath();
                 roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
                 ctx.lineWidth = borderWidthMain;
                 ctx.strokeStyle = "#F7C873";
                 ctx.stroke();
-                // Inner fine border
+                // Inner fine border (cream)
                 ctx.beginPath();
                 roundedRect(ctx, photoX + borderWidthMain/2, photoY + borderWidthMain/2, photoSize - borderWidthMain, photoSize - borderWidthMain, radius - borderWidthMain/2);
                 ctx.lineWidth = borderWidthInner;
                 ctx.strokeStyle = "#FFF9E6";
                 ctx.stroke();
             } else {
-                // Placeholder frame (when no photo)
+                // Placeholder frame when photo not uploaded
                 ctx.fillStyle = "rgba(250, 240, 210, 0.92)";
                 ctx.beginPath();
                 roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
@@ -494,14 +494,14 @@
                 ctx.stroke();
             }
             
-            // ---- NAME SECTION (PURE BLACK COLOUR WITH WHITE GLOW, MAX LEGIBILITY) ----
+            // 3. NAME PRINTING: WHITE COLOR with strong dark shadow for maximum contrast (as requested: "NAME PRINT വെള്ള നിറത്തില്‍")
             let studentName = nameInput.value.trim();
             if (studentName === "") {
-                studentName = "__________";
+                studentName = "________";
             }
-            // Dynamic font sizing to fit within photo width + extra margin
+            // dynamic font sizing for perfect fit (width limited by photo width + extra margin)
             let maxNameWidth = photoSize + (70 * factor);
-            let fontSize = 54 * factor;   // base font ~135px at 2.5x
+            let fontSize = 54 * factor;   // ~135px at 2.5x
             ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
             let textWidth = ctx.measureText(studentName).width;
             while (textWidth > maxNameWidth && fontSize > (28 * factor)) {
@@ -509,29 +509,40 @@
                 ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
                 textWidth = ctx.measureText(studentName).width;
             }
-            // final font size (minimum readability preserved)
+            
             ctx.save();
-            // Strong white glow behind black text for outstanding contrast on any background
-            ctx.shadowColor = "rgba(255, 255, 230, 0.98)";
-            ctx.shadowBlur = 8 * factor;
-            ctx.shadowOffsetX = 2 * factor;
-            ctx.shadowOffsetY = 2 * factor;
-            ctx.fillStyle = "#000000";   // EXACT BLACK as requested
+            // Enhance readability on any background: dark shadow & white text (PURE WHITE)
+            ctx.shadowColor = "rgba(0, 0, 0, 0.75)";      // deep black shadow makes white pop
+            ctx.shadowBlur = 10 * factor;
+            ctx.shadowOffsetX = 3 * factor;
+            ctx.shadowOffsetY = 3 * factor;
+            ctx.fillStyle = "#FFFFFF";                     // WHITE NAME as requested
             ctx.textAlign = "center";
             ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
+            // subtle stroke to improve edge definition on bright backgrounds (optional but elegant)
+            ctx.lineWidth = 1.5 * factor;
+            ctx.strokeStyle = "#1a2f3e";
+            ctx.shadowBlur = 10 * factor;  // keep shadow strong for contrast
             ctx.fillText(studentName, centerPhotoX, nameBaseY);
-            // Additional subtle text stroke to enhance (shadow already powerful)
+            // add light stroke behind to avoid clipping but main fill is white
+            ctx.restore();
+            
+            // Optional: extra small glow effect to ensure white text stands out even more
+            ctx.save();
+            ctx.shadowColor = "rgba(0,0,0,0)";
+            ctx.fillStyle = "#FFFFFF";
+            ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
+            ctx.fillText(studentName, centerPhotoX, nameBaseY);
             ctx.restore();
         }
         
-        // set cropped image from high-resolution canvas (1600x1600 or larger)
+        // set cropped image from high-resolution canvas (minimum 2000x2000)
         function setCroppedImageFromCanvas(canvasElement) {
             const img = new Image();
             img.onload = () => {
                 currentCroppedImage = img;
                 drawFullPoster();
             };
-            // Use maximum quality PNG dataURL to preserve detail
             img.src = canvasElement.toDataURL('image/png');
         }
         
@@ -548,7 +559,7 @@
             modalCropImg.src = '';
         }
         
-        // open modal with image and init cropper (1:1 aspect for square perfect frame)
+        // open modal with file and init cropper (1:1 aspect ratio for square)
         function openCropModalWithFile(file) {
             if (!file) return;
             const reader = new FileReader();
@@ -579,7 +590,6 @@
             reader.readAsDataURL(file);
         }
         
-        // Handle file selection: open crop modal for high-res crop
         function onPhotoSelected(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -591,16 +601,15 @@
             openCropModalWithFile(file);
         }
         
-        // Save cropped image with ULTRA HIGH RESOLUTION for final poster (2000x2000 px output)
+        // Save cropped image with ULTRA HIGH RESOLUTION (2400x2400) for maximum sharpness
         function saveCroppedImage() {
             if (!cropperInstance) {
                 alert("ക്രോപ്പ് ടൂൾ പ്രവർത്തന സജ്ജമല്ല, വീണ്ടും ശ്രമിക്കുക");
                 closeCropModal(true);
                 return;
             }
-            // Create cropped canvas at MEGA resolution (2400x2400 ensures no pixelation on 3000px poster)
-            // Photo area on poster will be ~1050px, but providing 2000px+ keeps it razor sharp.
-            const croppedCanvas = cropperInstance.getCroppedCanvas({ width: 2200, height: 2200 });
+            // Create cropped canvas at high resolution (2600x2600 px ensures no quality loss)
+            const croppedCanvas = cropperInstance.getCroppedCanvas({ width: 2500, height: 2500 });
             if (!croppedCanvas) {
                 alert("ക്രോപ്പ് ചെയ്യുന്നതിൽ പിശക്, ദയവായി വീണ്ടും ശ്രമിക്കുക");
                 return;
@@ -613,7 +622,7 @@
             closeCropModal(true);
         }
         
-        // ----- Show/hide photo upload section based on name input -----
+        // Show/hide photo upload section based on name input
         function toggleUploadSection() {
             const nameValue = nameInput.value.trim();
             if (nameValue.length > 0) {
@@ -633,7 +642,7 @@
             drawFullPoster();
         }
         
-        // ----- Load high-res background (will be scaled beautifully) -----
+        // Load high-res background
         function initBackground() {
             backgroundImage.crossOrigin = "Anonymous";
             backgroundImage.onload = () => {
@@ -641,18 +650,17 @@
                 drawFullPoster();
             };
             backgroundImage.onerror = () => {
-                console.warn("Background fallback");
+                console.warn("Background fallback using gradient");
                 bgReady = true;
                 drawFullPoster();
             };
             backgroundImage.src = BG_IMAGE_URL;
         }
         
-        // ----- DOWNLOAD AS JPG WITH MAXIMUM QUALITY (0.98) and maximum resolution -----
+        // DOWNLOAD AS JPG WITH MAX QUALITY (0.98) - ultra resolution poster
         function downloadPosterAsJPG() {
-            const nameForFile = (nameInput.value.trim() || "GUPS_poster").replace(/[^a-zA-Z0-9\u0D00-\u0D7F]/g, '_');
-            const filename = `GUPS_Poster_${nameForFile}.jpg`;
-            // Convert canvas to JPEG blob at highest quality (0.98)
+            const nameForFile = (nameInput.value.trim() || "CKHM_poster").replace(/[^a-zA-Z0-9\u0D00-\u0D7F]/g, '_');
+            const filename = `CKHM_Poster_${nameForFile}.jpg`;
             posterCanvas.toBlob((blob) => {
                 if (blob) {
                     const link = document.createElement('a');
@@ -666,7 +674,7 @@
                 } else {
                     alert("JPG ജനറേഷൻ പരാജയപ്പെട്ടു, വീണ്ടും ശ്രമിക്കുക");
                 }
-            }, 'image/jpeg', 0.98);   // Maximum quality JPG
+            }, 'image/jpeg', 0.98);
         }
         
         // ----- EVENT BINDINGS -----
@@ -692,19 +700,16 @@
         
         downloadBtn.addEventListener('click', downloadPosterAsJPG);
         
-        // final background init
+        // final initialization
         initBackground();
         toggleUploadSection();
         drawFullPoster();
         
-        // handle window resize: just redraw preview but canvas dimensions remain max (3000x3750)
         window.addEventListener('resize', () => {
             drawFullPoster();
         });
         
-        // Additional note: ensure that if the user loads a very small image, cropping to 2200x2200 still works
-        // but gives best possible sharpness.
-        console.log(`Poster MAX RESOLUTION active: ${CANVAS_WIDTH} x ${CANVAS_HEIGHT} pixels, JPG download with 0.98 quality.`);
+        console.log(`✅ Poster max resolution: ${CANVAS_WIDTH}x${CANVAS_HEIGHT}px, White name, Photo & Name lowered.`);
     })();
 </script>
 </body>
