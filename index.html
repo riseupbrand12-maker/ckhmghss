@@ -16,129 +16,158 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a2f44, #134e6f);
+            background: radial-gradient(circle at 10% 30%, #1a2a2f, #0b1a1f);
             min-height: 100vh;
-            padding: 32px 20px;
+            padding: 40px 24px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* Glassmorphic card with rich festival vibe */
         .poster-card {
             max-width: 1400px;
             width: 100%;
-            background: #fffef7;
-            border-radius: 56px;
-            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 210, 120, 0.5);
+            background: rgba(15, 25, 30, 0.68);
+            backdrop-filter: blur(14px);
+            border-radius: 64px;
+            box-shadow: 0 30px 55px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 120, 0.25);
             overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 200, 100, 0.4);
         }
 
+        /* New header design - warm metallic gold */
         .hero-header {
             text-align: center;
-            padding: 28px 24px 20px;
-            background: linear-gradient(120deg, #fff8ed, #fff3e0);
-            border-bottom: 2px solid #ffdeae;
+            padding: 32px 24px 28px;
+            background: linear-gradient(135deg, #1e2e28, #1f2c22);
+            border-bottom: 2px solid #f5b642;
+            position: relative;
+        }
+        .hero-header::after {
+            content: "✨";
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            background: #1f2c22;
+            padding: 0 12px;
+            color: #ffcd7e;
         }
         .hero-header h1 {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(145deg, #1f4b6e, #f7b42c);
+            background: linear-gradient(145deg, #f7e05e, #ffb347);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -0.2px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .hero-header p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #c6761a;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffde9c;
             margin-top: 8px;
+            letter-spacing: 1px;
         }
 
+        /* two column layout with new spacing */
         .flex-studio {
             display: flex;
             flex-wrap: wrap;
         }
 
+        /* controls area - translucent dark card */
         .controls-area {
             flex: 1.1;
             min-width: 290px;
-            background: #fffbf2;
-            padding: 32px 28px;
-            border-right: 1px solid #ffebcf;
+            background: rgba(25, 35, 32, 0.75);
+            backdrop-filter: blur(4px);
+            padding: 36px 28px;
+            border-right: 1px solid rgba(245, 182, 66, 0.35);
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 32px;
         }
 
         .preview-area {
             flex: 1.2;
-            background: #fef9f0;
-            padding: 30px 20px;
+            background: rgba(20, 30, 28, 0.55);
+            backdrop-filter: blur(4px);
+            padding: 35px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
         }
 
         .input-block {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         .input-block label {
             font-weight: 800;
-            color: #2f577b;
-            font-size: 1rem;
+            color: #ffdd99;
+            font-size: 1.1rem;
             letter-spacing: -0.2px;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
         }
         input {
             width: 100%;
-            padding: 14px 20px;
-            border-radius: 60px;
-            border: 2px solid #f4debc;
-            background: white;
+            padding: 15px 22px;
+            border-radius: 80px;
+            border: 1.5px solid #ffcd7e;
+            background: rgba(255, 250, 235, 0.95);
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             outline: none;
-            transition: 0.2s;
+            transition: 0.25s;
+            color: #1f2e24;
         }
         input:focus {
-            border-color: #f7b32b;
-            box-shadow: 0 0 0 3px rgba(247,179,43,0.2);
+            border-color: #f7bc45;
+            box-shadow: 0 0 0 4px rgba(247, 188, 69, 0.4);
+            background: white;
         }
 
         .upload-section {
             transition: all 0.2s ease;
-            background: #fef5e9;
+            background: rgba(0, 0, 0, 0.35);
             border-radius: 48px;
             padding: 20px 18px;
-            border: 1px dashed #ffcd8c;
+            border: 1px dashed #ffbe5e;
         }
         .file-label {
-            background: #f3e5d3;
+            background: linear-gradient(95deg, #d8a33a, #c9892e);
             padding: 14px 18px;
             border-radius: 60px;
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             transition: 0.2s;
-            border: 1px solid #e2cdab;
+            border: none;
+            color: white;
+            text-shadow: 0 1px 2px black;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
         .file-label:hover {
-            background: #eedcb9;
-            transform: scale(1.01);
-            border-color: #f7b32b;
+            background: linear-gradient(95deg, #f0b347, #e09d2c);
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
         }
         #photoInput {
             display: none;
         }
 
-        /* MODAL - CROP TOOL */
+        /* MODAL - crop tool (consistent) */
         .crop-modal {
             display: none;
             position: fixed;
@@ -147,7 +176,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -157,25 +186,25 @@
             display: flex;
         }
         .modal-box {
-            background: #fffef5;
+            background: #1e2823;
             border-radius: 48px;
             width: 90%;
             max-width: 750px;
             padding: 20px 20px 28px;
-            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.5);
-            border: 1px solid #ffdfaa;
+            box-shadow: 0 30px 45px rgba(0, 0, 0, 0.6);
+            border: 1px solid #ffce7a;
         }
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             padding: 0 8px 12px 16px;
-            border-bottom: 2px solid #ffe1b3;
+            border-bottom: 2px solid #ffbc54;
         }
         .modal-header h3 {
             font-size: 1.7rem;
             font-weight: 800;
-            background: linear-gradient(145deg, #cc7b2a, #e69c2e);
+            background: linear-gradient(145deg, #ffd966, #ffa82b);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -186,16 +215,16 @@
             background: none;
             border: none;
             font-weight: 600;
-            color: #b97f3a;
+            color: #ffbf69;
             transition: 0.2s;
         }
         .modal-close:hover {
-            color: #c0392b;
+            color: #ff8c42;
             transform: scale(1.1);
         }
         .crop-container {
             margin: 20px 0;
-            background: #ece1cf;
+            background: #30281e;
             border-radius: 32px;
             overflow: hidden;
             max-height: 55vh;
@@ -220,31 +249,31 @@
             border-radius: 60px;
             font-weight: 800;
             font-size: 1rem;
-            color: #2c2e3a;
+            color: #1e2a24;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         .btn-crop-save:hover {
-            background: #e09d1a;
+            background: #ffc247;
             transform: translateY(-2px);
         }
         .btn-cancel-crop {
-            background: #e2d4c0;
+            background: #5c4b32;
             border: none;
             padding: 12px 28px;
             border-radius: 60px;
             font-weight: 700;
-            color: #5a3e1f;
+            color: #fbeccd;
             cursor: pointer;
         }
 
         .canvas-wrapper {
-            background: #fff7e8;
-            border-radius: 32px;
-            box-shadow: 0 20px 32px rgba(0, 0, 0, 0.18);
-            padding: 12px;
-            max-width: 560px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 36px;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 120, 0.5);
+            padding: 14px;
+            max-width: 580px;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -253,42 +282,50 @@
             display: block;
             width: 100%;
             height: auto;
-            border-radius: 24px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-            background: #e8d9c4;
+            border-radius: 28px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: #ccb28b;
         }
         .download-btn {
-            background: #1f8a4c;
+            background: linear-gradient(105deg, #2b7a4b, #1d5e3a);
             border: none;
-            padding: 14px 32px;
-            border-radius: 60px;
-            font-size: 1.1rem;
+            padding: 16px 36px;
+            border-radius: 80px;
+            font-size: 1.2rem;
             font-weight: bold;
             color: white;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            gap: 14px;
+            box-shadow: 0 12px 22px rgba(0, 0, 0, 0.4);
+            letter-spacing: 1px;
         }
         .download-btn:hover {
-            background: #0f6a3a;
+            background: linear-gradient(105deg, #3c9c62, #267c48);
             transform: scale(1.02);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5);
         }
         .footer-credit {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #b97f2e;
-            background: #fff2e2;
-            padding: 6px 18px;
-            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffdd99;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 20px;
+            border-radius: 40px;
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 10px;
             text-align: center;
+            backdrop-filter: blur(4px);
         }
         .hidden {
             display: none;
+        }
+        .info-note {
+            font-size: 0.7rem;
+            color: #ffcc88;
+            text-shadow: 0 1px 1px black;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -297,7 +334,7 @@
         @media (max-width: 780px) {
             .controls-area {
                 border-right: none;
-                border-bottom: 1px solid #ffebcf;
+                border-bottom: 1px solid rgba(245, 182, 66, 0.5);
             }
             .hero-header h1 {
                 font-size: 1.5rem;
@@ -317,7 +354,7 @@
 <div class="poster-card">
     <div class="hero-header">
         <h1>CKHM ഗവ. ഹൈസ്‌കൂള്‍ എടപ്പറ്റ</h1>
-        <p>പ്രവേശനോത്സവം 2026</p>
+        <p>🌟 പ്രവേശനോത്സവം 2026 🌟</p>
     </div>
 
     <div class="flex-studio">
@@ -325,19 +362,19 @@
             <div class="input-block">
                 <label>📝 നിങ്ങളുടെ പേര്</label>
                 <input type="text" id="studentName" placeholder="ഉദാ: ഫാത്തിമ കെ / FATHIMA K" autocomplete="off">
-                <div class="info-note" style="font-size:0.7rem; color:#b5762a;">* പേര് നൽകിയ ശേഷം ഫോട്ടോ അപ്ലോഡ് ചെയ്യാം</div>
+                <div class="info-note">* പേര് നൽകിയ ശേഷം ഫോട്ടോ അപ്ലോഡ് ചെയ്യാം</div>
             </div>
 
             <div id="photoUploadWrapper" class="upload-section hidden">
                 <div class="input-block">
-                    <label>📸 ഫോട്ടോ അപ്ലോഡ് </label>
+                    <label>📸 ഫോട്ടോ അപ്ലോഡ്</label>
                     <div class="file-label" id="triggerFileSelect">
                         🖼️ ഫോട്ടോ തിരഞ്ഞെടുക്കുക
                     </div>
                     <input type="file" id="photoInput" accept="image/jpeg, image/png, image/jpg">
                 </div>
-                <div style="font-size:0.7rem; color:#b87c30; margin-top:8px; text-align:center;">
-                    ✨ ഫോട്ടോ ക്രോപ്പ് ചെയ്യാം (1:1)
+                <div style="font-size:0.7rem; color:#ffd48a; margin-top:8px; text-align:center;">
+                    ✨ ക്രോപ്പ് ചെയ്ത് ഫോട്ടോ സേവ് ചെയ്യുക
                 </div>
             </div>
         </div>
@@ -346,17 +383,17 @@
             <div class="canvas-wrapper">
                 <canvas id="posterCanvas" style="width:100%; height:auto; max-width:530px; border-radius: 24px;"></canvas>
             </div>
-            <button id="downloadPosterBtn" class="download-btn">⬇️ പോസ്റ്റർ ഡൗൺലോഡ് ചെയ്യുക</button>
-            <div class="footer-credit">© SUHAIL KERALA | RiseUp Brand | 7034678818</div>
+            <button id="downloadPosterBtn" class="download-btn">⬇️ പോസ്റ്റർ ഡൗൺലോഡ്</button>
+            <div class="footer-credit">✨ SUHAIL KERALA | RiseUp Brand | 7034678818 ✨</div>
         </div>
     </div>
 </div>
 
-<!-- CROP MODAL -->
+<!-- CROP MODAL (unchanged but theme friendly) -->
 <div id="cropModal" class="crop-modal">
     <div class="modal-box">
         <div class="modal-header">
-            <h3>✂️ ഫോട്ടോ ക്രോപ്പ് ചെയ്യുക (High-Res)</h3>
+            <h3>✂️ ഫോട്ടോ ക്രോപ്പ് ചെയ്യുക (1:1 സ്ക്വയർ)</h3>
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="crop-container" id="cropImageContainer">
@@ -364,21 +401,20 @@
         </div>
         <div class="modal-buttons">
             <button id="modalCancelBtn" class="btn-cancel-crop">❌ റദ്ദാക്കുക</button>
-            <button id="modalCropSaveBtn" class="btn-crop-save">✔️ ക്രോപ്പ് & സേവ് ചെയ്യുക</button>
+            <button id="modalCropSaveBtn" class="btn-crop-save">✔️ ക്രോപ്പ് & സേവ്</button>
         </div>
     </div>
 </div>
 
 <script>
     (function() {
-        // ---------- MAX RESOLUTION CONFIG ----------
+        // ---------- MAX RESOLUTION CONFIG (ultra HD poster) ----------
         const BASE_WIDTH = 1200;
         const BASE_HEIGHT = 1500;
-        const RESOLUTION_MULTIPLIER = 2.5;   // 3000 x 3750 px ultra sharp
+        const RESOLUTION_MULTIPLIER = 2.5;   // 3000x3750 px
         const CANVAS_WIDTH = Math.floor(BASE_WIDTH * RESOLUTION_MULTIPLIER);
         const CANVAS_HEIGHT = Math.floor(BASE_HEIGHT * RESOLUTION_MULTIPLIER);
         
-        // DOM elements
         const nameInput = document.getElementById('studentName');
         const photoUploadWrapper = document.getElementById('photoUploadWrapper');
         const photoFileInput = document.getElementById('photoInput');
@@ -393,16 +429,15 @@
         
         let ctx = posterCanvas.getContext('2d');
         let cropperInstance = null;
-        let currentCroppedImage = null;      // high-res photo image (square)
+        let currentCroppedImage = null;
         let backgroundImage = new Image();
         let bgReady = false;
         
         posterCanvas.width = CANVAS_WIDTH;
         posterCanvas.height = CANVAS_HEIGHT;
         
-        const BG_IMAGE_URL = 'https://i.postimg.cc/tRs1gw1M/EDAPPATTA1.jpg';
+        const BG_IMAGE_URL = 'https://i.postimg.cc/tRs1gw1M/EDAPPATTA1.jpg'; // original poster background (festive)
         
-        // Helper: rounded rectangle
         function roundedRect(ctx, x, y, w, h, r) {
             if (w < 2 * r) r = w / 2;
             if (h < 2 * r) r = h / 2;
@@ -418,38 +453,38 @@
             ctx.closePath();
         }
         
-        // ----- DRAW POSTER (ONLY ONE NAME RENDERING, WHITE COLOR, LOWERED POSITION) -----
+        // ----- DRAW POSTER (white name, lowered photo and name, no duplicate) -----
         function drawFullPoster() {
             if (!ctx) return;
             const w = posterCanvas.width;
             const h = posterCanvas.height;
-            const factor = w / BASE_WIDTH;  // 2.5x scaling
+            const factor = w / BASE_WIDTH;  // 2.5
             
-            // --- LAYOUT: PHOTO & NAME LOWERED (extra 90px base offset) ---
-            const LOWER_OFFSET_BASE = 90;    // moves photo+name further down
-            const photoSize = 420 * factor;          // 1050px @2.5x
-            const rightMargin = 80 * factor;         // right margin
+            // LOWER OFFSET: moved photo & name further down (+90 base)
+            const LOWER_OFFSET_BASE = 90;
+            const photoSize = 420 * factor;
+            const rightMargin = 80 * factor;
             const photoX = w - photoSize - rightMargin;
-            const photoY = (470 + LOWER_OFFSET_BASE) * factor;   // lowered position
-            const nameGapBelowPhoto = 70 * factor;     // gap between photo and name
+            const photoY = (470 + LOWER_OFFSET_BASE) * factor;   // lowered as requested
+            const nameGapBelowPhoto = 70 * factor;
             const nameBaseY = photoY + photoSize + nameGapBelowPhoto;
             const radius = 44 * factor;
             const borderWidthMain = 4 * factor;
             const borderWidthInner = 2.5 * factor;
             const centerPhotoX = photoX + photoSize / 2;
             
-            // 1. Background
+            // background (school template)
             if (bgReady && backgroundImage.complete && backgroundImage.naturalWidth > 0) {
                 ctx.drawImage(backgroundImage, 0, 0, w, h);
             } else {
                 const grad = ctx.createLinearGradient(0, 0, w, h);
-                grad.addColorStop(0, '#1d5b85');
-                grad.addColorStop(0.65, '#f5b042');
+                grad.addColorStop(0, '#2c4b32');
+                grad.addColorStop(1, '#ab7a3a');
                 ctx.fillStyle = grad;
                 ctx.fillRect(0, 0, w, h);
             }
             
-            // 2. Photo frame & image (or placeholder)
+            // PHOTO + FRAME
             if (currentCroppedImage && currentCroppedImage.complete && currentCroppedImage.naturalWidth) {
                 ctx.save();
                 ctx.beginPath();
@@ -458,25 +493,23 @@
                 ctx.drawImage(currentCroppedImage, photoX, photoY, photoSize, photoSize);
                 ctx.restore();
                 
-                // Outer border
                 ctx.beginPath();
                 roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
                 ctx.lineWidth = borderWidthMain;
-                ctx.strokeStyle = "#F7C873";
+                ctx.strokeStyle = "#FFD966";
                 ctx.stroke();
-                // Inner border
                 ctx.beginPath();
                 roundedRect(ctx, photoX + borderWidthMain/2, photoY + borderWidthMain/2, photoSize - borderWidthMain, photoSize - borderWidthMain, radius - borderWidthMain/2);
                 ctx.lineWidth = borderWidthInner;
-                ctx.strokeStyle = "#FFF9E6";
+                ctx.strokeStyle = "#FFF1BF";
                 ctx.stroke();
             } else {
                 // placeholder
-                ctx.fillStyle = "rgba(250, 240, 210, 0.92)";
+                ctx.fillStyle = "rgba(235, 215, 175, 0.9)";
                 ctx.beginPath();
                 roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
                 ctx.fill();
-                ctx.fillStyle = "#b57c34";
+                ctx.fillStyle = "#ad7a3c";
                 const emojiFontSize = 68 * factor;
                 ctx.font = `${emojiFontSize}px 'Anek Malayalam', 'Segoe UI Emoji'`;
                 ctx.textAlign = "center";
@@ -484,17 +517,14 @@
                 ctx.textAlign = "left";
                 ctx.beginPath();
                 roundedRect(ctx, photoX, photoY, photoSize, photoSize, radius);
-                ctx.strokeStyle = "#e5bf86";
+                ctx.strokeStyle = "#e9bd73";
                 ctx.lineWidth = borderWidthMain;
                 ctx.stroke();
             }
             
-            // 3. NAME: WHITE COLOR, strong shadow, only ONE rendering (no duplicate)
+            // NAME: WHITE COLOR, single rendering, no duplicate (bug fixed)
             let studentName = nameInput.value.trim();
-            if (studentName === "") {
-                studentName = "________";
-            }
-            // dynamic font sizing
+            if (studentName === "") studentName = "________";
             let maxNameWidth = photoSize + (70 * factor);
             let fontSize = 54 * factor;
             ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
@@ -505,24 +535,19 @@
                 textWidth = ctx.measureText(studentName).width;
             }
             
-            // SINGLE NAME RENDER: white fill with dark shadow for high contrast
+            // ONLY ONE FILL operation -> no duplicate
             ctx.save();
-            ctx.shadowColor = "rgba(0, 0, 0, 0.85)";   // deep black shadow makes white pop
+            ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
             ctx.shadowBlur = 10 * factor;
             ctx.shadowOffsetX = 3 * factor;
             ctx.shadowOffsetY = 3 * factor;
-            ctx.fillStyle = "#FFFFFF";                 // WHITE NAME as requested
+            ctx.fillStyle = "#FFFFFF";     // pure white name
             ctx.textAlign = "center";
             ctx.font = `bold ${fontSize}px 'Anek Malayalam'`;
-            // Optional thin stroke to enhance readability, but not duplicate text
             ctx.fillText(studentName, centerPhotoX, nameBaseY);
             ctx.restore();
-            
-            // Ensure no extra fillText or stroke that would cause duplicate.
-            // (Previous bug that printed twice is fully removed.)
         }
         
-        // Set cropped image from high-res canvas
         function setCroppedImageFromCanvas(canvasElement) {
             const img = new Image();
             img.onload = () => {
@@ -538,9 +563,7 @@
                 cropperInstance = null;
             }
             cropModal.classList.remove('active');
-            if (resetFileInput) {
-                photoFileInput.value = '';
-            }
+            if (resetFileInput) photoFileInput.value = '';
             modalCropImg.src = '';
         }
         
@@ -551,9 +574,7 @@
                 modalCropImg.src = e.target.result;
                 cropModal.classList.add('active');
                 modalCropImg.onload = () => {
-                    if (cropperInstance) {
-                        cropperInstance.destroy();
-                    }
+                    if (cropperInstance) cropperInstance.destroy();
                     cropperInstance = new Cropper(modalCropImg, {
                         aspectRatio: 1,
                         viewMode: 2,
@@ -567,9 +588,7 @@
                         center: true,
                     });
                 };
-                if (modalCropImg.complete) {
-                    modalCropImg.onload();
-                }
+                if (modalCropImg.complete) modalCropImg.onload();
             };
             reader.readAsDataURL(file);
         }
@@ -593,28 +612,19 @@
             }
             const croppedCanvas = cropperInstance.getCroppedCanvas({ width: 2500, height: 2500 });
             if (!croppedCanvas) {
-                alert("ക്രോപ്പ് ചെയ്യുന്നതിൽ പിശക്, ദയവായി വീണ്ടും ശ്രമിക്കുക");
+                alert("ക്രോപ്പ് ചെയ്യുന്നതിൽ പിശക്");
                 return;
             }
             setCroppedImageFromCanvas(croppedCanvas);
             closeCropModal(true);
         }
         
-        function cancelCropping() {
-            closeCropModal(true);
-        }
+        function cancelCropping() { closeCropModal(true); }
         
         function toggleUploadSection() {
             const nameValue = nameInput.value.trim();
-            if (nameValue.length > 0) {
-                if (photoUploadWrapper.classList.contains('hidden')) {
-                    photoUploadWrapper.classList.remove('hidden');
-                }
-            } else {
-                if (!photoUploadWrapper.classList.contains('hidden')) {
-                    photoUploadWrapper.classList.add('hidden');
-                }
-            }
+            if (nameValue.length > 0) photoUploadWrapper.classList.remove('hidden');
+            else photoUploadWrapper.classList.add('hidden');
             drawFullPoster();
         }
         
@@ -625,21 +635,14 @@
         
         function initBackground() {
             backgroundImage.crossOrigin = "Anonymous";
-            backgroundImage.onload = () => {
-                bgReady = true;
-                drawFullPoster();
-            };
-            backgroundImage.onerror = () => {
-                console.warn("Background fallback");
-                bgReady = true;
-                drawFullPoster();
-            };
+            backgroundImage.onload = () => { bgReady = true; drawFullPoster(); };
+            backgroundImage.onerror = () => { bgReady = true; drawFullPoster(); };
             backgroundImage.src = BG_IMAGE_URL;
         }
         
         function downloadPosterAsJPG() {
             const nameForFile = (nameInput.value.trim() || "CKHM_poster").replace(/[^a-zA-Z0-9\u0D00-\u0D7F]/g, '_');
-            const filename = `CKHM_Poster_${nameForFile}.jpg`;
+            const filename = `CKHM_${nameForFile}.jpg`;
             posterCanvas.toBlob((blob) => {
                 if (blob) {
                     const link = document.createElement('a');
@@ -651,43 +654,34 @@
                     document.body.removeChild(link);
                     URL.revokeObjectURL(url);
                 } else {
-                    alert("JPG ജനറേഷൻ പരാജയപ്പെട്ടു, വീണ്ടും ശ്രമിക്കുക");
+                    alert("JPG ജനറേഷൻ പരാജയപ്പെട്ടു");
                 }
             }, 'image/jpeg', 0.98);
         }
         
-        // ----- EVENT BINDINGS -----
+        // Events
         nameInput.addEventListener('input', onNameChange);
         nameInput.addEventListener('blur', () => drawFullPoster());
         triggerFileSelect.addEventListener('click', (e) => {
             e.preventDefault();
-            const nameExists = nameInput.value.trim().length > 0;
-            if (!nameExists) {
+            if (nameInput.value.trim().length === 0) {
                 alert("ദയവായി ആദ്യം നിങ്ങളുടെ പേര് രേഖപ്പെടുത്തുക");
                 return;
             }
             photoFileInput.click();
         });
         photoFileInput.addEventListener('change', onPhotoSelected);
-        
         modalCropSaveBtn.addEventListener('click', saveCroppedImage);
         modalCancelBtn.addEventListener('click', cancelCropping);
         closeModalBtn.addEventListener('click', cancelCropping);
-        cropModal.addEventListener('click', (e) => {
-            if (e.target === cropModal) cancelCropping();
-        });
-        
+        cropModal.addEventListener('click', (e) => { if (e.target === cropModal) cancelCropping(); });
         downloadBtn.addEventListener('click', downloadPosterAsJPG);
         
         initBackground();
         toggleUploadSection();
         drawFullPoster();
-        
-        window.addEventListener('resize', () => {
-            drawFullPoster();
-        });
-        
-        console.log("✅ Fixed: Name appears only once, white color, lowered position.");
+        window.addEventListener('resize', () => drawFullPoster());
+        console.log("NEW THEME: Glassmorphic dark festival style | White name, lowered position, single name render");
     })();
 </script>
 </body>
